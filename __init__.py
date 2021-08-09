@@ -30,7 +30,7 @@ bl_info = {
 
 
 
-#创建面片类
+#创建面片
 class TEST_OT_hello(bpy.types.Operator):
     bl_idname = "triangle.hello"
     bl_label = "hello"
