@@ -16,7 +16,7 @@
 import bpy
 
 
-#blender插件信息
+#blender插件信息11
 bl_info = {
     "name" : "test",
     "author" : "fxc",
