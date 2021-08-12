@@ -14,6 +14,7 @@
 
 
 import bpy
+import bmesh
 
 
 #blender插件信息11
@@ -116,6 +117,34 @@ class Bake_OT_rename(bpy.types.Operator):
 
 
 
+
+#终极打平面工具
+class  Face_OT_plane(bpy.types.Operator):
+    bl_idname = "triangle.keeplane"
+    bl_label = "keeplane"
+
+
+    def execute(self, context):
+        bpy.ops.mesh.select_mode(type= 'FACE')
+        obj = bpy.context.edit_object
+        me = obj.data
+        bm = bmesh.from_edit_mesh(me)
+
+
+        qh_face = bm.faces
+        for a in qh_face :
+    
+            a.select = True
+            bmesh.update_edit_mesh(me, True)
+            bpy.ops.mesh.select_linked(delimit={'SHARP'})
+            bpy.ops.mesh.looptools_flatten(influence=100, lock_x=False, lock_y=False, lock_z=False, plane='best_fit', restriction='none')
+            bpy.ops.mesh.select_all(action='DESELECT')
+        
+        else:
+            print("结束")
+
+        return {"FINISHED"}
+
         
 #-------------界面ui绘制---------------------
 class Test_PT_view3d(bpy.types.Panel):
@@ -125,7 +154,7 @@ class Test_PT_view3d(bpy.types.Panel):
 
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_context = "objectmode"
+    bl_context = "mesh_edit"
 
     bl_category = "Test"
 
@@ -147,6 +176,12 @@ class Test_PT_view3d(bpy.types.Panel):
         row.operator("triangle.rename",text="Rename") 
 
 
+        layout.label(text="硬边面工具打平")
+        row = layout.row()
+
+        row.operator("triangle.keeplane",text="硬边面打平")
+
+
 
 
 
@@ -160,6 +195,7 @@ def register():
     bpy.utils.register_class(TEST2_OT_hello)
     bpy.utils.register_class(Test_PT_view3d)
     bpy.utils.register_class(Bake_OT_rename)
+    bpy.utils.register_class(Face_OT_plane)
     
     ...
 
@@ -169,6 +205,7 @@ def unregister():
     bpy.utils.unregister_class(TEST2_OT_hello)
     bpy.utils.unregister_class(Test_PT_view3d)
     bpy.utils.unregister_class(Bake_OT_rename)
+    bpy.utils.unregister_class(Face_OT_plane)
    
 
 
