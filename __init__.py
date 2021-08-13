@@ -173,13 +173,13 @@ class Test_PT_view3d(bpy.types.Panel):
         layout.label(text="Bake_Rename")
         row = layout.row()
 
-        row.operator("triangle.rename",text="Rename") 
+        row.operator("triangle.rename",text="BR") 
 
-
-        layout.label(text="硬边面工具打平")
+        #
+        layout.label(text="make plane by shape edge")
         row = layout.row()
 
-        row.operator("triangle.keeplane",text="硬边面打平")
+        row.operator("triangle.keeplane",text="PBS")
 
 
 
