@@ -17,7 +17,7 @@ import bpy
 import bmesh
 
 
-#blender插件信息，显示在插件面板
+#blender插件信息
 bl_info = {
     "name" : "test",
     "author" : "fxc",
